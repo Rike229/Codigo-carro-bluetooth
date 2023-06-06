@@ -1,0 +1,135 @@
+#define motor1A A5
+#define motor1B A4
+#define motor2A A3
+#define motor2B A2
+
+
+#define bluetoothTX 0
+#define bluetoothRX 1
+
+void setup() {
+
+  pinMode(motor1A, OUTPUT);
+  pinMode(motor1B, OUTPUT);
+  pinMode(motor2A, OUTPUT);
+  pinMode(motor2B, OUTPUT);
+
+
+  Serial.begin(9600);
+}
+
+void loop() {
+
+  if (Serial.available()) {
+    char comando = Serial.read();
+
+
+    switch(comando) {
+         case 'F':
+        frente();
+           break;
+         case 'B':
+        tras();
+           break;
+         case 'L':
+        esquerda();
+           break;
+         case 'R':
+        direita();
+           break;
+         case 'S':
+        parar();
+           break;
+         case 'G':
+        meiavoltaE();
+           break;
+         case 'I':
+        meiavoltaD();
+           break; 
+         case 'H':
+        trasD();
+           break;         
+         case 'J':
+        trasE();
+           break;     
+      default:
+           break;
+    }
+  }
+}
+
+// Função para movimentar o carrinho para frente
+void frente() {
+   analogWrite(motor1A, HIGH);
+   analogWrite(motor1B, LOW);
+   analogWrite(motor2A, HIGH);
+   analogWrite(motor2B, LOW);
+}
+
+// Função para movimentar o carrinho para trás
+void tras() {
+   analogWrite(motor1A, LOW);
+   analogWrite(motor1B, HIGH);
+   analogWrite(motor2A, LOW);
+   analogWrite(motor2B, HIGH);
+}
+
+// Função para movimentar o carrinho para a esquerda
+void esquerda() {
+   analogWrite(motor1A, LOW);
+   analogWrite(motor1B, HIGH);
+   analogWrite(motor2A, HIGH);
+   analogWrite(motor2B, LOW);
+}
+
+// Função para movimentar o carrinho para a direita
+void direita() {
+   analogWrite(motor1A, HIGH);
+   analogWrite(motor1B, LOW);
+   analogWrite(motor2A, LOW);
+   analogWrite(motor2B, HIGH);
+}
+
+// Função para parar o carrinho
+void parar() {
+   analogWrite(motor1A, LOW);
+   analogWrite(motor1B, LOW);
+   analogWrite(motor2A, LOW);
+   analogWrite(motor2B, LOW);
+   }
+
+// Função para movimentar o carrinho em uma meia lua direita
+   void meiavoltaD(){
+
+   analogWrite(motor1A, 200);
+   analogWrite(motor1B, 0);
+   analogWrite(motor2A, 100);
+   analogWrite(motor2B, 0); 
+   }
+
+// Função para movimentar o carrinho em uma meia lua esquerda
+void meiavoltaE(){
+
+   analogWrite(motor1A, 100);
+   analogWrite(motor1B, 0);
+   analogWrite(motor2A, 200);
+   analogWrite(motor2B, 0);
+   }
+
+// Função para movimentar o carrinho em uma meia lua direita trás
+void trasD(){
+
+   analogWrite(motor1A, 0);
+   analogWrite(motor1B, 100);
+   analogWrite(motor2A, 0);
+   analogWrite(motor2B, 200);
+   }
+
+// Função para movimentar o carrinho em uma meia lua esquerda trás
+   void trasE(){
+
+   analogWrite(motor1A, 0);
+   analogWrite(motor1B, 200);
+   analogWrite(motor2A, 0);
+   analogWrite(motor2B, 100);
+   }
